@@ -1,0 +1,188 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* 1. MAPA TOKEN -> UTILIDAD (inline para que siga a .dark en runtime) */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* colores propios: el modo de la API */
+  --color-escritura: var(--escritura);
+  --color-escritura-suave: var(--escritura-suave);
+  --color-lectura: var(--lectura);
+  --color-lectura-suave: var(--lectura-suave);
+  --color-exito: var(--exito);
+
+  /* next/font emite --font-display/--font-text/--font-code (nombres distintos a propósito) */
+  --font-sans: var(--font-text);
+  --font-heading: var(--font-display);
+  --font-mono: var(--font-code);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+/* 2. TOKENS DEL PROYECTO (valores fijos) */
+@theme {
+  --text-fluid-sm: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
+  --text-fluid-base: clamp(0.875rem, 0.84rem + 0.2vw, 0.9375rem);
+  --text-fluid-lg: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --text-fluid-xl: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+
+  --spacing-section: clamp(1.5rem, 3vw, 2.5rem);
+  --spacing-gutter: clamp(1rem, 3vw, 2.5rem);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* 3. VALORES — claro. Neutros teñidos al tono 255 (grafito azulado) */
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.982 0.003 255);
+  --foreground: oklch(0.21 0.012 255);
+  --card: oklch(0.995 0.002 255);
+  --card-foreground: oklch(0.21 0.012 255);
+  --popover: oklch(0.995 0.002 255);
+  --popover-foreground: oklch(0.21 0.012 255);
+  --primary: oklch(0.24 0.014 255);
+  --primary-foreground: oklch(0.975 0.004 255);
+  --secondary: oklch(0.945 0.005 255);
+  --secondary-foreground: oklch(0.24 0.014 255);
+  --muted: oklch(0.955 0.005 255);
+  --muted-foreground: oklch(0.47 0.014 255);
+  --accent: oklch(0.94 0.006 255);
+  --accent-foreground: oklch(0.21 0.012 255);
+  --destructive: oklch(0.56 0.19 25);
+  --border: oklch(0.9 0.006 255);
+  --input: oklch(0.87 0.007 255);
+  --ring: oklch(0.62 0.13 70);
+
+  --escritura: oklch(0.58 0.13 65);
+  --escritura-suave: oklch(0.58 0.13 65 / 12%);
+  --lectura: oklch(0.5 0.07 165);
+  --lectura-suave: oklch(0.5 0.07 165 / 11%);
+  --exito: oklch(0.52 0.11 155);
+
+  --sidebar: oklch(0.965 0.004 255);
+  --sidebar-foreground: oklch(0.3 0.012 255);
+  --sidebar-border: oklch(0.9 0.006 255);
+  --sidebar-accent: oklch(0.925 0.006 255);
+  --sidebar-accent-foreground: oklch(0.18 0.012 255);
+  --sidebar-primary: oklch(0.24 0.014 255);
+  --sidebar-primary-foreground: oklch(0.975 0.004 255);
+  --sidebar-ring: oklch(0.62 0.13 70);
+}
+
+/* oscuro: superficies propias, acentos con menos croma, bordes translúcidos */
+.dark {
+  --background: oklch(0.165 0.007 255);
+  --foreground: oklch(0.925 0.006 255);
+  --card: oklch(0.192 0.008 255);
+  --card-foreground: oklch(0.925 0.006 255);
+  --popover: oklch(0.205 0.009 255);
+  --popover-foreground: oklch(0.925 0.006 255);
+  --primary: oklch(0.915 0.006 255);
+  --primary-foreground: oklch(0.19 0.01 255);
+  --secondary: oklch(0.235 0.009 255);
+  --secondary-foreground: oklch(0.925 0.006 255);
+  --muted: oklch(0.215 0.008 255);
+  --muted-foreground: oklch(0.69 0.012 255);
+  --accent: oklch(0.245 0.01 255);
+  --accent-foreground: oklch(0.94 0.006 255);
+  --destructive: oklch(0.68 0.16 25);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.78 0.11 72);
+
+  --escritura: oklch(0.8 0.115 72);
+  --escritura-suave: oklch(0.8 0.115 72 / 11%);
+  --lectura: oklch(0.78 0.065 165);
+  --lectura-suave: oklch(0.78 0.065 165 / 10%);
+  --exito: oklch(0.76 0.1 155);
+
+  --sidebar: oklch(0.145 0.007 255);
+  --sidebar-foreground: oklch(0.8 0.008 255);
+  --sidebar-border: oklch(1 0 0 / 7%);
+  --sidebar-accent: oklch(0.215 0.009 255);
+  --sidebar-accent-foreground: oklch(0.95 0.005 255);
+  --sidebar-primary: oklch(0.915 0.006 255);
+  --sidebar-primary-foreground: oklch(0.19 0.01 255);
+  --sidebar-ring: oklch(0.78 0.11 72);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+  /* en oscuro el texto se ve más pesado: aflojo un poco */
+  .dark body {
+    letter-spacing: 0.005em;
+  }
+  h1, h2, h3 {
+    @apply font-heading tracking-tight;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* entrada escalonada: solo para grupos que se ven de vez en cuando */
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.aparecer > * {
+  animation: aparecer 280ms var(--ease-out) both;
+}
+.aparecer > *:nth-child(2) { animation-delay: 40ms; }
+.aparecer > *:nth-child(3) { animation-delay: 80ms; }
+.aparecer > *:nth-child(4) { animation-delay: 120ms; }
+.aparecer > *:nth-child(5) { animation-delay: 160ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .aparecer > * { animation: none; }
+  html { scroll-behavior: auto; }
+}

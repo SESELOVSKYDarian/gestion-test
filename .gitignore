@@ -1,0 +1,23 @@
+# dependencias
+node_modules/
+
+# entorno
+.env
+.env.*
+!.env.example
+
+# builds
+dist/
+build/
+.next/
+out/
+
+# logs
+*.log
+
+# skills / agentes / ia
+.claude/
+.playwright-cli/
+.agents/
+.codex/
+.cursor/
